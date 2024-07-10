@@ -1,24 +1,27 @@
-import { Box, Container, Typography } from "@mui/material";
-import { useLoaderData } from "@remix-run/react";
+// import {faIR} from '@mui/x-date-pickers/locales';
+// import {AdapterDateFnsJalali} from "@mui/x-date-pickers/AdapterDateFnsJalali";
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
+import DatePicker from "../components/TestDatePicker";
+import { faIR} from "date-fns/locale/fa-IR";
+// import PersianUtils from 'material-ui-persian-date-picker-utils';
+
+// const faLocale = faIR.components.MuiLocalizationProvider.defaultProps.localeText;
 
 export default function Main() {
-    const data = useLoaderData();
-
     return (
-        <Container>
-            <Box>
-                <Typography>{data.title}</Typography>
-                <Typography>{data.body}</Typography>
-            </Box>
-        </Container>
+        <>
+            <LocalizationProvider 
+                adapterLocale={faIR}
+                // utils={PersianUtils} 
+                // localeText={faLocale} 
+                dateAdapter={AdapterDateFns} 
+            >
+                <DatePicker 
+                    label={"date"}
+                    value={""}
+                    setValue={(date) => {}}
+                />
+            </LocalizationProvider>
+        </>
     );
-}
-
-export async function loader() {
-    const res = await fetch("https://jsonplaceholder.typicode.com/posts/2", {
-        method: "GET"       
-    });
-    const data = await res.json();
-
-    return data ?? {};
 }

@@ -13,6 +13,7 @@ import {createInstance} from "i18next";
 import i18nServer from "./i18next.server";
 import {I18nextProvider, initReactI18next} from "react-i18next";
 import * as i18n from "./i18n";
+import {MuiProvider} from "~/MuiProvider";
 
 const ABORT_DELAY = 5000;
 
@@ -58,11 +59,13 @@ async function handleBotRequest(
         let shellRendered = false;
         const {pipe, abort} = renderToPipeableStream(
             <I18nextProvider i18n={instance}>
-                <RemixServer
-                    context={remixContext}
-                    url={request.url}
-                    abortDelay={ABORT_DELAY}
-                />
+                <MuiProvider>
+                    <RemixServer
+                        context={remixContext}
+                        url={request.url}
+                        abortDelay={ABORT_DELAY}
+                    />
+                </MuiProvider>
             </I18nextProvider>,
             {
                 onAllReady() {

@@ -8,7 +8,9 @@ installGlobals();
 
 export default defineConfig({
     plugins: [
-        remix(), 
+        remix({
+            ssr: false
+        }), 
         tsconfigPaths()
     ],
     optimizeDeps: {
